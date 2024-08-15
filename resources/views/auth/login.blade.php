@@ -15,18 +15,31 @@
                             Belanja kebutuhan utama, <br />
                             menjadi lebih mudah
                         </h2>
-                        <form class="mt-3">
+                        @if (session()->has('errorMessage'))
+                            <div class="alert alert-danger w-75">
+                                {{ session()->get('errorMessage') }}
+                            </div>
+                        @endif
+                        <form class="mt-3" method="POST" action="{{ route('authenticate') }}">
+                            @csrf
                             <div class="form-group">
                                 <label>Email address</label>
-                                <input type="email" class="form-control w-75" aria-describedby="emailHelp" />
+                                <input type="email" name="email" class="form-control w-75" aria-describedby="emailHelp"
+                                    value="{{ old('email') }}" />
+                                @error('email')
+                                    <p class="text text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label>Password</label>
-                                <input type="password" class="form-control w-75" />
+                                <input type="password" name="password" class="form-control w-75" />
+                                @error('password')
+                                    <p class="text text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
-                            <a class="btn btn-success btn-block w-75 mt-4" href="/login.html">
+                            <button type="submit" class="btn btn-success btn-block w-75 mt-4">
                                 Sign In to My Account
-                            </a>
+                            </button>
                             <a class="btn btn-signup w-75 mt-2" href="{{ route('register') }}">
                                 Sign Up
                             </a>

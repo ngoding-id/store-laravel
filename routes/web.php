@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Dashboard\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,8 +22,17 @@ Route::get('/categories', [HomeController::class, 'categories'])->name('categori
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/login', [AuthController::class, 'authenticate'])->name('authenticate');
 
     Route::get('/register', [AuthController::class, 'register'])->name('register');
     Route::post('/register', [AuthController::class, 'storeUser'])->name('storeUser');
     Route::get('/register-success', [AuthController::class, 'registerSuccess'])->name('registerSuccess');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+
+    Route::get('/dashboard/category', [CategoryController::class, 'index'])->name('dashboard.category');
+    Route::get('/dashboard/category/create', [CategoryController::class, 'create'])->name('dashboard.category.create');
+    Route::post('/dashboard/category', [CategoryController::class, 'store'])->name('dashboard.category.store');
 });
