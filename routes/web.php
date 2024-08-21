@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Dashboard\CategoryController;
+use App\Http\Controllers\Dashboard\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,4 +36,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/category', [CategoryController::class, 'index'])->name('dashboard.category');
     Route::get('/dashboard/category/create', [CategoryController::class, 'create'])->name('dashboard.category.create');
     Route::post('/dashboard/category', [CategoryController::class, 'store'])->name('dashboard.category.store');
+    Route::get('/dashboard/category/{categoryId}', [CategoryController::class, 'edit'])->name('dashboard.category.edit');
+    Route::patch('/dashboard/category/{categoryId}', [CategoryController::class, 'update'])->name('dashboard.category.update');
+    Route::delete('/dashboard/category/{categoryId}', [CategoryController::class, 'delete'])->name('dashboard.category.delete');
+
+    Route::prefix('dashboard')->group(function () {
+        Route::resource('product', ProductController::class);
+    });
 });

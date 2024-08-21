@@ -23,10 +23,12 @@
                 </div>
                 <div class="list-group list-group-flush">
                     <a href="{{ route('dashboard') }}"
-                        class="list-group-item list-group-item-action active">Dashboard</a>
+                        class="list-group-item list-group-item-action {{ request()->is('dashboard') ? 'active' : '' }}">Dashboard</a>
                     <a href="{{ route('dashboard.category') }}"
-                        class="list-group-item list-group-item-action">Categories</a>
-                    <a href="/dashboard-products.html" class="list-group-item list-group-item-action">My Products</a>
+                        class="list-group-item list-group-item-action  {{ request()->is('dashboard/category*') ? 'active' : '' }}">Categories</a>
+                    <a href="{{ route('product.index') }}"
+                        class="list-group-item list-group-item-action  {{ request()->is('dashboard/product*') ? 'active' : '' }}">My
+                        Products</a>
                     <a href="/dashboard-transactions.html"
                         class="list-group-item list-group-item-action">Transactions</a>
                     <a href="/dashboard-settings.html" class="list-group-item list-group-item-action">Store Settings</a>
